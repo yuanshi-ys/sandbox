@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import gaussian_kde
+from scipy.signal import find_peaks
 
 def otsu_threshold_from_array(data, nbins=256):
     """
@@ -57,7 +59,7 @@ def otsu_threshold_from_array(data, nbins=256):
 
 def KDE_valley(data):
     kde = gaussian_kde(np.log10(data))
-    x_values = np.linspace(np.log10(UMI).min() - 1, np.log10(UMI).max() + 1, 1000)
+    x_values = np.linspace(np.log10(data).min() - 1, np.log10(data).max() + 1, 1000)
     kde_values = kde(x_values)
     peaks, _ = find_peaks(kde_values)
 
